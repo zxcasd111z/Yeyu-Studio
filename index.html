@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>我的世界服务器官网</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+
+    body {
+      background: #0d0d0d url('https://www.minecraft.net/etc.clientlibs/minecraft/clientlibs/main/resources/img/bg-noise.png');
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      background: linear-gradient(45deg, #39c5bb, #ffaa00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .subtitle {
+      color: #aaa;
+      font-size: 1.1rem;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
+
+    .tab-btn {
+      padding: 12px 24px;
+      background: #1a1a1a;
+      border: 2px solid #39c5bb;
+      color: #39c5bb;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border-radius: 8px;
+    }
+
+    .tab-btn.active {
+      background: #39c5bb;
+      color: #000;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(57, 197, 187, 0.4);
+    }
+
+    .tab-btn:hover:not(.active) {
+      background: #222;
+      border-color: #ffaa00;
+      color: #ffaa00;
+    }
+
+    .servers-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 500px;
+      perspective: 1000px;
+    }
+
+    .server-page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(26, 26, 26, 0.85);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+      backdrop-filter: blur(10px);
+      border: 1px solid #333;
+      overflow-y: auto;
+    }
+
+    .server-page.active {
+      opacity: 1;
+      transform: translateX(0);
+      z-index: 10;
+    }
+
+    .server-page.prev {
+      transform: translateX(-100%);
+    }
+
+    .server-title {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #ffaa00;
+      border-bottom: 2px solid #39c5bb;
+      padding-bottom: 10px;
+    }
+
+    .rules-list {
+      list-style-type: none;
+      padding-left: 10px;
+    }
+
+    .rules-list li {
+      margin: 12px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .rules-list li::before {
+      content: "▶";
+      color: #39c5bb;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    footer {
+      margin-top: 40px;
+      color: #666;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .server-page { padding: 20px; height: 450px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>⛏️ 我的世界服务器中心</h1>
+    <p class="subtitle">欢迎来到我们的双服世界！请选择服务器查看规则</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-server="survival">生存服</button>
+    <button class="tab-btn" data-server="creative">创造服</button>
+  </div>
+
+  <div class="servers-container">
+    <div class="server-page active" id="survival">
+      <h2 class="server-title">🌍 生存服务器规则</h2>
+      <ul class="rules-list">
+        <li>禁止作弊、外挂、修改客户端</li>
+        <li>禁止 grief（恶意破坏他人建筑）</li>
+        <li>基地请标注领地，避免误拆</li>
+        <li>PVP 需双方同意，禁止偷袭新手</li>
+        <li>禁止刷屏、广告、辱骂他人</li>
+        <li>红石机器请控制频率，避免卡服</li>
+        <li>每周六晚 8 点团建活动，欢迎参加！</li>
+      </ul>
+    </div>
+
+    <div class="server-page" id="creative">
+      <h2 class="server-title">✨ 创造服务器规则</h2>
+      <ul class="rules-list">
+        <li>仅限创造模式，禁止切换生存</li>
+        <li>作品需署名，禁止抄袭他人建筑</li>
+        <li>大型项目请提前申请区域</li>
+        <li>禁止建造敏感/违规内容</li>
+        <li>每月举办“建筑大赛”，优胜者获专属称号</li>
+        <li>服务器每周一重启清理未完成项目</li>
+        <li>欢迎邀请朋友一起创作！</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    © 2026 Minecraft 双服服主 | 雨夜工作室
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll('.tab-btn');
+    const pages = document.querySelectorAll('.server-page');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.server;
+
+        // 移除所有 active
+        buttons.forEach(b => b.classList.remove('active'));
+        pages.forEach(p => p.classList.remove('active', 'prev'));
+
+        // 添加当前 active
+        btn.classList.add('active');
+
+        // 动画方向判断
+        const currentIndex = Array.from(pages).findIndex(p => p.classList.contains('active'));
+        const targetIndex = targetId === 'survival' ? 0 : 1;
+
+        if (targetIndex > currentIndex) {
+          // 向右滑入
+          document.getElementById(targetId).style.transform = 'translateX(100%)';
+          setTimeout(() => {
+            document.getElementById(targetId).classList.add('active');
+          }, 10);
+        } else if (targetIndex < currentIndex) {
+          // 向左滑入
+          document.getElementById(targetId).style.transform = 'translateX(-100%)';
+          setTimeout(() => {
+            document.getElementById(targetId).classList.add('active');
+            // 给旧页面加 prev 类以向左退出
+            pages[currentIndex].classList.add('prev');
+          }, 10);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
